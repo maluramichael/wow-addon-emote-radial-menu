@@ -7,7 +7,6 @@
 ## OptionalDeps: Ace3
 
 embeds.xml
-Bindings.xml
 
 EmoteRadialMenu.lua
 Core\Database.lua
