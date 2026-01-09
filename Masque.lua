@@ -5,7 +5,7 @@ if not Masque then
 	return
 end
 
-local MasqueGroup = Masque:Group("EmoteRadialMenu", "Emote Buttons")
+local MasqueGroup = Masque:Group("EmoteRadialMenu")
 
 local OriginalButtonNew = Addon.EmoteButton.New
 
