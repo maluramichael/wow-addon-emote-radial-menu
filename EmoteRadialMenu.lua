@@ -33,14 +33,8 @@ function EmoteRadialMenu:RefreshConfig()
 end
 
 function EmoteRadialMenu:SlashCommand(input)
-	if input == "config" or input == "options" then
-		local AceConfigDialog = LibStub("AceConfigDialog-3.0")
-		AceConfigDialog:Open("EmoteRadialMenu")
-	else
-		self:Print("Commands:")
-		self:Print("/emote config - Open configuration")
-		self:Print("Bind a key to toggle the radial menu")
-	end
+	local AceConfigDialog = LibStub("AceConfigDialog-3.0")
+	AceConfigDialog:Open("EmoteRadialMenu")
 end
 
 function EmoteRadialMenu_ToggleMenu()
