@@ -94,7 +94,7 @@ local function CreateOptionsTable(addon)
 				order = 3,
 				args = {
 					description = {
-						name = "Select which emotes appear in the radial menu. Add or remove emotes as needed.",
+						name = "Select which emotes appear in the radial menu.",
 						type = "description",
 						order = 0,
 					},
@@ -103,27 +103,143 @@ local function CreateOptionsTable(addon)
 		},
 	}
 
-	local allEmotes = addon.EmoteManager:GetAllEmotes()
-	table.sort(allEmotes)
+	local emoteCategories = {
+		positive = {
+			name = "Positive",
+			order = 1,
+			emotes = {
+				"agree", "applaud", "cheer", "clap", "comfort", "commend", "congratulate",
+				"happy", "hug", "kiss", "love", "praise", "thank", "ty", "welcome"
+			}
+		},
+		negative = {
+			name = "Negative",
+			order = 2,
+			emotes = {
+				"angry", "annoyed", "bored", "confused", "cry", "disappointed", "frown",
+				"insult", "mad", "mourn", "no", "rude", "sad", "scared", "sigh", "tired"
+			}
+		},
+		funny = {
+			name = "Funny",
+			order = 3,
+			emotes = {
+				"belch", "burp", "chicken", "cower", "dance", "fart", "flex", "flirt",
+				"giggle", "laugh", "lol", "rofl", "silly", "surprised", "train", "wink"
+			}
+		},
+		gestures = {
+			name = "Gestures",
+			order = 4,
+			emotes = {
+				"beckon", "bow", "bye", "greet", "hello", "kneel", "point", "raise",
+				"salute", "shrug", "sit", "sleep", "stand", "wave", "yes"
+			}
+		},
+		social = {
+			name = "Social",
+			order = 5,
+			emotes = {
+				"bounce", "calm", "curious", "followme", "laydown", "listen", "pet",
+				"ponder", "pounce", "puzzle", "question", "read", "ready", "talk",
+				"talkex", "talkq", "wait", "whistle", "work"
+			}
+		},
+		playful = {
+			name = "Playful",
+			order = 6,
+			emotes = {
+				"bite", "blink", "blush", "chuckle", "cuddle", "eye", "grin", "kiss",
+				"lick", "pat", "pinch", "poke", "purr", "sexy", "shimmy", "smile",
+				"smirk", "snicker", "tease", "tickle", "tongue"
+			}
+		},
+		combat = {
+			name = "Combat",
+			order = 7,
+			emotes = {
+				"charge", "flee", "ready", "roar", "surrender", "taunt", "threaten",
+				"victory", "violin", "warn"
+			}
+		},
+		other = {
+			name = "Other",
+			order = 8,
+			emotes = {
+				"afk", "amaze", "brb", "dnd", "doom", "drool", "drink", "eat",
+				"golfclap", "grovel", "hungry", "incoming", "oom", "openfire",
+				"rasp", "shoo", "shout", "sniff", "spit", "stare", "thirsty",
+				"veto", "volunteer", "yawn"
+			}
+		}
+	}
 
-	for i, emote in ipairs(allEmotes) do
-		options.args.emotes.args[emote] = {
-			name = emote:gsub("^%l", string.upper),
-			type = "toggle",
-			order = i,
-			get = function()
-				return addon.EmoteManager:IsEmoteEnabled(emote)
-			end,
-			set = function(_, val)
-				if val then
-					addon.EmoteManager:AddEmote(emote)
-				else
-					addon.EmoteManager:RemoveEmote(emote)
-				end
-				if addon.RadialMenu:IsShown() then
-					addon.RadialMenu:ApplySettings()
-				end
-			end,
+	for categoryKey, category in pairs(emoteCategories) do
+		local categoryArgs = {
+			header = {
+				name = category.name,
+				type = "header",
+				order = 0,
+			},
+			selectAll = {
+				name = "Select All",
+				type = "execute",
+				order = 1,
+				func = function()
+					for _, emote in ipairs(category.emotes) do
+						addon.EmoteManager:AddEmote(emote)
+					end
+					if addon.RadialMenu:IsShown() then
+						addon.RadialMenu:ApplySettings()
+					end
+				end,
+			},
+			selectNone = {
+				name = "Select None",
+				type = "execute",
+				order = 2,
+				func = function()
+					for _, emote in ipairs(category.emotes) do
+						addon.EmoteManager:RemoveEmote(emote)
+					end
+					if addon.RadialMenu:IsShown() then
+						addon.RadialMenu:ApplySettings()
+					end
+				end,
+			},
+			spacer = {
+				name = "",
+				type = "description",
+				order = 3,
+			},
+		}
+
+		for i, emote in ipairs(category.emotes) do
+			categoryArgs[emote] = {
+				name = emote:gsub("^%l", string.upper),
+				type = "toggle",
+				order = 10 + i,
+				get = function()
+					return addon.EmoteManager:IsEmoteEnabled(emote)
+				end,
+				set = function(_, val)
+					if val then
+						addon.EmoteManager:AddEmote(emote)
+					else
+						addon.EmoteManager:RemoveEmote(emote)
+					end
+					if addon.RadialMenu:IsShown() then
+						addon.RadialMenu:ApplySettings()
+					end
+				end,
+			}
+		end
+
+		options.args.emotes.args[categoryKey] = {
+			name = category.name,
+			type = "group",
+			order = category.order,
+			args = categoryArgs,
 		}
 	end
 
