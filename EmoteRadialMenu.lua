@@ -41,21 +41,49 @@ end
 function EmoteRadialMenu:SetupKeyListener()
 	if not self.keyListenerFrame then
 		local frame = CreateFrame("Frame")
+		frame.timeSinceLastCheck = 0
+		frame.wasShown = false
+
 		frame:SetScript("OnUpdate", function(self, elapsed)
+			self.timeSinceLastCheck = self.timeSinceLastCheck + elapsed
+
+			if self.timeSinceLastCheck < 0.05 then
+				return
+			end
+
+			self.timeSinceLastCheck = 0
+
 			local addon = EmoteRadialMenu
-			if addon.db.profile.menu.holdToShow and addon.RadialMenu.keyPressed then
-				local keyDown = IsModifierKeyDown() or GetMouseButtonClicked()
-				if not keyDown then
-					addon.RadialMenu.keyPressed = false
-					addon.RadialMenu:Hide()
+			local menu = addon.RadialMenu
+
+			if addon.db.profile.menu.holdToShow and menu.keyPressed then
+				if not menu:IsShown() then
+					menu.keyPressed = false
+					return
+				end
+
+				local binding = GetBindingKey("EMOTEMENU_TOGGLE")
+				local stillPressed = false
+
+				if binding then
+					local key = binding
+					if key:find("ALT") or key:find("CTRL") or key:find("SHIFT") then
+						stillPressed = IsModifierKeyDown()
+					end
+				end
+
+				if not stillPressed then
+					menu.keyPressed = false
+					menu:Hide()
 				end
 			end
 		end)
+
 		self.keyListenerFrame = frame
 	end
 end
 
-function EmoteRadialMenu_ToggleMenu(keystate)
+function EmoteRadialMenu_ToggleMenu()
 	local addon = LibStub("AceAddon-3.0"):GetAddon("EmoteRadialMenu")
 
 	if not addon then
@@ -70,12 +98,9 @@ function EmoteRadialMenu_ToggleMenu(keystate)
 	local holdMode = addon.db.profile.menu.holdToShow
 
 	if holdMode then
-		if keystate == "down" or not keystate then
+		if not addon.RadialMenu:IsShown() then
 			addon.RadialMenu.keyPressed = true
 			addon.RadialMenu:Show()
-		else
-			addon.RadialMenu.keyPressed = false
-			addon.RadialMenu:Hide()
 		end
 	else
 		if addon.RadialMenu:IsShown() then

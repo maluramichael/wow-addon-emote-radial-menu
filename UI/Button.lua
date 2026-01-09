@@ -40,11 +40,19 @@ function EmoteButton:New(parent, addon)
 	button:SetScript("OnEnter", function(self)
 		self.highlight:Show()
 		self.text:SetTextColor(1, 1, 1, 1)
+
+		if self.radialMenu and self.buttonIndex then
+			self.radialMenu:ShowWedgeHighlight(self.buttonIndex)
+		end
 	end)
 
 	button:SetScript("OnLeave", function(self)
 		self.highlight:Hide()
 		self.text:SetTextColor(1, 0.9, 0.5, 1)
+
+		if self.radialMenu then
+			self.radialMenu:HideWedgeHighlight()
+		end
 	end)
 
 	button:SetScript("OnClick", function(self, mouseButton)

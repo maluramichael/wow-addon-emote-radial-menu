@@ -80,14 +80,7 @@ function EmoteManager:RemoveEmote(emoteName)
 
 	for i, emote in ipairs(profile.emotes) do
 		if emote == emoteName then
-			table.remove(profile.emotes, i)
-			profile.enabledEmotes[i] = nil
-
-			local newEnabled = {}
-			for j = 1, #profile.emotes do
-				newEnabled[j] = profile.enabledEmotes[j]
-			end
-			profile.enabledEmotes = newEnabled
+			profile.enabledEmotes[i] = false
 			return
 		end
 	end
