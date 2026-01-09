@@ -1,0 +1,17 @@
+## Interface: 11508
+## Title: EmoteRadialMenu
+## Notes: A radial menu for quick emote access. Press keybind to open menu at cursor.
+## Author: maluramichael
+## Version: 1.0.0
+## SavedVariables: EmoteRadialMenuDB
+## OptionalDeps: Ace3
+
+embeds.xml
+Bindings.xml
+
+EmoteRadialMenu.lua
+Core\Database.lua
+Core\Emotes.lua
+UI\Button.lua
+UI\RadialMenu.lua
+Config\Options.lua

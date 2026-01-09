@@ -1,0 +1,12 @@
+# WoW cache files
+*.bak
+*.cache
+*.old
+
+# macOS
+.DS_Store
+
+# Editor files
+*.swp
+*.swo
+*~
