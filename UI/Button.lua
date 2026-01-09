@@ -25,8 +25,8 @@ function EmoteButton:New(parent, addon)
 	button.border = border
 
 	local highlight = button:CreateTexture(nil, "ARTWORK")
-	highlight:SetAllPoints(bg)
-	highlight:SetColorTexture(0.4, 0.7, 1.0, 0.5)
+	highlight:SetAllPoints(button)
+	highlight:SetColorTexture(0.4, 0.7, 1.0, 0.3)
 	highlight:SetBlendMode("ADD")
 	highlight:Hide()
 	button.highlight = highlight
