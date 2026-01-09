@@ -66,10 +66,6 @@ function RadialMenu:Show()
 	self.frame:ClearAllPoints()
 	self.frame:SetPoint("CENTER", UIParent, "BOTTOMLEFT", x, y)
 
-	local profile = self.addon.db.profile
-	self.frame:SetScale(profile.menu.scale)
-	self.frame:SetAlpha(profile.menu.alpha)
-
 	self:RebuildButtons()
 	self:PositionButtons()
 
@@ -104,6 +100,7 @@ function RadialMenu:RebuildButtons()
 	local emotes = self.addon.EmoteManager:GetEnabledEmotes()
 	local profile = self.addon.db.profile
 	local buttonSize = profile.menu.buttonSize
+	local alpha = profile.menu.alpha
 
 	for i, emote in ipairs(emotes) do
 		local button = self.buttons[i]
@@ -111,6 +108,7 @@ function RadialMenu:RebuildButtons()
 			Addon.EmoteButton:SetEmote(button, emote)
 			Addon.EmoteButton:UpdateColors(button)
 			button:SetSize(buttonSize, buttonSize)
+			button:SetAlpha(alpha)
 			button:Show()
 			button:EnableMouse(true)
 		end
@@ -148,10 +146,6 @@ function RadialMenu:ApplySettings()
 	if not self:IsShown() then
 		return
 	end
-
-	local profile = self.addon.db.profile
-	self.frame:SetScale(profile.menu.scale)
-	self.frame:SetAlpha(profile.menu.alpha)
 
 	self:RebuildButtons()
 	self:PositionButtons()

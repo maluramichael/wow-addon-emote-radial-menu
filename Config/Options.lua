@@ -13,23 +13,11 @@ local function CreateOptionsTable(addon)
 				type = "group",
 				order = 1,
 				args = {
-					holdToShow = {
-						name = "Hold to Show",
-						desc = "Menu only shows while key is held down (requires rebind)",
-						type = "toggle",
-						order = 1,
-						get = function()
-							return addon.db.profile.menu.holdToShow
-						end,
-						set = function(_, val)
-							addon.db.profile.menu.holdToShow = val
-						end,
-					},
 					closeOnUse = {
 						name = "Close on Use",
 						desc = "Automatically close menu after selecting an emote",
 						type = "toggle",
-						order = 2,
+						order = 1,
 						get = function()
 							return addon.db.profile.menu.closeOnUse
 						end,
@@ -44,24 +32,6 @@ local function CreateOptionsTable(addon)
 				type = "group",
 				order = 2,
 				args = {
-					scale = {
-						name = "Menu Scale",
-						desc = "Overall size of the radial menu",
-						type = "range",
-						min = 0.5,
-						max = 2.0,
-						step = 0.1,
-						order = 1,
-						get = function()
-							return addon.db.profile.menu.scale
-						end,
-						set = function(_, val)
-							addon.db.profile.menu.scale = val
-							if addon.RadialMenu:IsShown() then
-								addon.RadialMenu:ApplySettings()
-							end
-						end,
-					},
 					alpha = {
 						name = "Opacity",
 						desc = "Transparency of the menu",
