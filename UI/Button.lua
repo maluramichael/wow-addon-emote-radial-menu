@@ -77,9 +77,3 @@ function EmoteButton:SetEmote(button, emote)
 	local displayName = emote:gsub("^%l", string.upper)
 	button.text:SetText(displayName)
 end
-
-function EmoteButton:UpdateColors(button)
-	local profile = button.addon.db.profile
-	local c = profile.menu.buttonColor
-	button.bg:SetColorTexture(c[1], c[2], c[3], 0.9)
-end

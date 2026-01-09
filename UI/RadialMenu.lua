@@ -106,7 +106,6 @@ function RadialMenu:RebuildButtons()
 		local button = self.buttons[i]
 		if button then
 			Addon.EmoteButton:SetEmote(button, emote)
-			Addon.EmoteButton:UpdateColors(button)
 			button:SetSize(buttonSize, buttonSize)
 			button:SetAlpha(alpha)
 			button:Show()
