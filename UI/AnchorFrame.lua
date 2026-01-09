@@ -16,42 +16,55 @@ function AnchorFrame:Create()
 		return
 	end
 
-	local frame = CreateFrame("Frame", "EmoteRadialMenuAnchor", UIParent)
-	frame:SetSize(60, 60)
+	local frame = CreateFrame("Frame", "EmoteRadialMenuAnchor", UIParent, BackdropTemplateMixin and "BackdropTemplate" or nil)
+	frame:SetSize(180, 40)
 	frame:SetFrameStrata("DIALOG")
 	frame:SetFrameLevel(100)
 	frame:SetMovable(true)
 	frame:EnableMouse(true)
-	frame:RegisterForDrag("LeftButton")
 	frame:SetClampedToScreen(true)
 	frame:Hide()
 
-	local bg = frame:CreateTexture(nil, "BACKGROUND")
-	bg:SetAllPoints()
-	bg:SetColorTexture(0.2, 0.6, 1.0, 0.5)
+	if frame.SetBackdrop then
+		frame:SetBackdrop({
+			bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+			edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+			tile = true,
+			tileSize = 8,
+			edgeSize = 12,
+			insets = { left = 2, right = 2, top = 2, bottom = 2 }
+		})
+		frame:SetBackdropColor(0.1, 0.1, 0.2, 0.9)
+		frame:SetBackdropBorderColor(0.4, 0.4, 0.5, 1)
+	end
 
-	local border = frame:CreateTexture(nil, "BORDER")
-	border:SetColorTexture(1, 1, 1, 0.8)
-	border:SetPoint("TOPLEFT", frame, "TOPLEFT", -2, 2)
-	border:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 2, -2)
+	local text = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
+	text:SetText("EmoteRadialMenu Anchor")
+	text:SetPoint("LEFT", 10, 0)
 
-	local text = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
-	text:SetPoint("CENTER")
-	text:SetText("⚓")
-	text:SetTextColor(1, 1, 1, 1)
-
-	frame:SetScript("OnDragStart", function(self)
-		self:StartMoving()
+	local close = CreateFrame("Button", nil, frame, "UIPanelCloseButton")
+	close:SetSize(24, 24)
+	close:SetPoint("RIGHT", -2, 0)
+	close:SetScript("OnClick", function()
+		frame:Hide()
 	end)
 
-	frame:SetScript("OnDragStop", function(self)
+	local anchorObj = self
+
+	frame:SetScript("OnMouseDown", function(self, button)
+		if button == "LeftButton" then
+			self:StartMoving()
+		end
+	end)
+
+	frame:SetScript("OnMouseUp", function(self)
 		self:StopMovingOrSizing()
-		anchor:UpdatePosition()
+		anchorObj:UpdatePosition()
 	end)
 
 	self.frame = frame
-	self.bg = bg
 	self.text = text
+	self.close = close
 end
 
 function AnchorFrame:Show()
