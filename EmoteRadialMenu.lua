@@ -1,6 +1,9 @@
 local AddonName, Addon = ...
 
 local EmoteRadialMenu = LibStub("AceAddon-3.0"):NewAddon(Addon, AddonName, "AceEvent-3.0", "AceConsole-3.0")
+local L = EmoteRadialMenu_Locale or {}
+
+Addon.L = L
 
 function EmoteRadialMenu:OnInitialize()
 	self.db = LibStub("AceDB-3.0"):New("EmoteRadialMenuDB", Addon.Database.defaults, true)
@@ -17,7 +20,7 @@ end
 
 function EmoteRadialMenu:OnEnable()
 	self.RadialMenu:CreateFrames()
-	self:Print("EmoteRadialMenu loaded. Bind a key to toggle the menu.")
+	self:Print(L["EmoteRadialMenu loaded. Bind a key to toggle the menu."])
 end
 
 function EmoteRadialMenu:OnDisable()
@@ -45,7 +48,8 @@ function EmoteRadialMenu_ToggleMenu()
 	end
 
 	if InCombatLockdown() then
-		addon:Print("Cannot open menu during combat")
+		local L = Addon.L
+		addon:Print(L["Cannot open menu during combat"])
 		return
 	end
 

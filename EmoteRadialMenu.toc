@@ -8,6 +8,9 @@
 
 embeds.xml
 
+Locales\enUS.lua
+Locales\deDE.lua
+
 EmoteRadialMenu.lua
 Core\Database.lua
 Core\Emotes.lua

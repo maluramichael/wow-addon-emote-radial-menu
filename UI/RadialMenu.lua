@@ -142,10 +142,19 @@ function RadialMenu:PositionButtons()
 end
 
 function RadialMenu:ApplySettings()
-	if not self:IsShown() then
-		return
+	local profile = self.addon.db.profile
+	local buttonSize = profile.menu.buttonSize
+	local alpha = profile.menu.alpha
+
+	for _, button in ipairs(self.buttons) do
+		if button then
+			button:SetSize(buttonSize, buttonSize)
+			button:SetAlpha(alpha)
+		end
 	end
 
-	self:RebuildButtons()
-	self:PositionButtons()
+	if self:IsShown() then
+		self:RebuildButtons()
+		self:PositionButtons()
+	end
 end

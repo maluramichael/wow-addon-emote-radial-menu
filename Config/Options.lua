@@ -2,6 +2,7 @@ local AddonName, Addon = ...
 
 local AceConfig = LibStub("AceConfig-3.0")
 local AceConfigDialog = LibStub("AceConfigDialog-3.0")
+local L = Addon.L or {}
 
 local function CreateOptionsTable(addon)
 	local options = {
@@ -9,13 +10,13 @@ local function CreateOptionsTable(addon)
 		type = "group",
 		args = {
 			behavior = {
-				name = "Behavior",
+				name = L["Behavior"],
 				type = "group",
 				order = 1,
 				args = {
 					closeOnUse = {
-						name = "Close on Use",
-						desc = "Automatically close menu after selecting an emote",
+						name = L["Close on Use"],
+						desc = L["Automatically close menu after selecting an emote"],
 						type = "toggle",
 						order = 1,
 						get = function()
@@ -28,13 +29,13 @@ local function CreateOptionsTable(addon)
 				},
 			},
 			general = {
-				name = "Menu Appearance",
+				name = L["Menu Appearance"],
 				type = "group",
 				order = 2,
 				args = {
 					alpha = {
-						name = "Opacity",
-						desc = "Transparency of the menu",
+						name = L["Opacity"],
+						desc = L["Transparency of the menu"],
 						type = "range",
 						min = 0.1,
 						max = 1.0,
@@ -51,8 +52,8 @@ local function CreateOptionsTable(addon)
 						end,
 					},
 					buttonRadius = {
-						name = "Button Radius",
-						desc = "Distance from center to buttons",
+						name = L["Button Radius"],
+						desc = L["Distance from center to buttons"],
 						type = "range",
 						min = 50,
 						max = 200,
@@ -69,8 +70,8 @@ local function CreateOptionsTable(addon)
 						end,
 					},
 					buttonSize = {
-						name = "Button Size",
-						desc = "Size of individual emote buttons",
+						name = L["Button Size"],
+						desc = L["Size of individual emote buttons"],
 						type = "range",
 						min = 20,
 						max = 80,
@@ -81,20 +82,18 @@ local function CreateOptionsTable(addon)
 						end,
 						set = function(_, val)
 							addon.db.profile.menu.buttonSize = val
-							if addon.RadialMenu:IsShown() then
-								addon.RadialMenu:ApplySettings()
-							end
+							addon.RadialMenu:ApplySettings()
 						end,
 					},
 				},
 			},
 			emotes = {
-				name = "Emote Selection",
+				name = L["Emote Selection"],
 				type = "group",
 				order = 3,
 				args = {
 					description = {
-						name = "Select which emotes appear in the radial menu.",
+						name = L["Select which emotes appear in the radial menu."],
 						type = "description",
 						order = 0,
 					},
@@ -105,7 +104,7 @@ local function CreateOptionsTable(addon)
 
 	local emoteCategories = {
 		positive = {
-			name = "Positive",
+			name = L["Positive"],
 			order = 1,
 			emotes = {
 				"agree", "applaud", "cheer", "clap", "comfort", "commend", "congratulate",
@@ -113,7 +112,7 @@ local function CreateOptionsTable(addon)
 			}
 		},
 		negative = {
-			name = "Negative",
+			name = L["Negative"],
 			order = 2,
 			emotes = {
 				"angry", "annoyed", "bored", "confused", "cry", "disappointed", "frown",
@@ -121,7 +120,7 @@ local function CreateOptionsTable(addon)
 			}
 		},
 		funny = {
-			name = "Funny",
+			name = L["Funny"],
 			order = 3,
 			emotes = {
 				"belch", "burp", "chicken", "cower", "dance", "fart", "flex", "flirt",
@@ -129,7 +128,7 @@ local function CreateOptionsTable(addon)
 			}
 		},
 		gestures = {
-			name = "Gestures",
+			name = L["Gestures"],
 			order = 4,
 			emotes = {
 				"beckon", "bow", "bye", "greet", "hello", "kneel", "point", "raise",
@@ -137,7 +136,7 @@ local function CreateOptionsTable(addon)
 			}
 		},
 		social = {
-			name = "Social",
+			name = L["Social"],
 			order = 5,
 			emotes = {
 				"bounce", "calm", "curious", "followme", "laydown", "listen", "pet",
@@ -146,7 +145,7 @@ local function CreateOptionsTable(addon)
 			}
 		},
 		playful = {
-			name = "Playful",
+			name = L["Playful"],
 			order = 6,
 			emotes = {
 				"bite", "blink", "blush", "chuckle", "cuddle", "eye", "grin", "kiss",
@@ -155,7 +154,7 @@ local function CreateOptionsTable(addon)
 			}
 		},
 		combat = {
-			name = "Combat",
+			name = L["Combat"],
 			order = 7,
 			emotes = {
 				"charge", "flee", "ready", "roar", "surrender", "taunt", "threaten",
@@ -163,7 +162,7 @@ local function CreateOptionsTable(addon)
 			}
 		},
 		other = {
-			name = "Other",
+			name = L["Other"],
 			order = 8,
 			emotes = {
 				"afk", "amaze", "brb", "dnd", "doom", "drool", "drink", "eat",
@@ -182,7 +181,7 @@ local function CreateOptionsTable(addon)
 				order = 0,
 			},
 			selectAll = {
-				name = "Select All",
+				name = L["Select All"],
 				type = "execute",
 				order = 1,
 				func = function()
@@ -195,7 +194,7 @@ local function CreateOptionsTable(addon)
 				end,
 			},
 			selectNone = {
-				name = "Select None",
+				name = L["Select None"],
 				type = "execute",
 				order = 2,
 				func = function()
