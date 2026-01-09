@@ -19,7 +19,6 @@ function EmoteButton:New(parent, addon)
 	button.bg = bg
 
 	local border = button:CreateTexture(nil, "BORDER")
-	border:SetAllPoints()
 	border:SetColorTexture(0.4, 0.4, 0.45, 1)
 	border:SetPoint("TOPLEFT", button, "TOPLEFT", -1, 1)
 	border:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 1, -1)
@@ -39,13 +38,11 @@ function EmoteButton:New(parent, addon)
 
 	button:SetScript("OnEnter", function(self)
 		self.highlight:Show()
-		self:SetScale(1.15)
 		self.text:SetTextColor(1, 1, 1, 1)
 	end)
 
 	button:SetScript("OnLeave", function(self)
 		self.highlight:Hide()
-		self:SetScale(1.0)
 		self.text:SetTextColor(1, 0.9, 0.5, 1)
 	end)
 
