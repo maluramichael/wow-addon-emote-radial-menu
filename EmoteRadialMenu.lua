@@ -17,6 +17,7 @@ end
 
 function EmoteRadialMenu:OnEnable()
 	self.RadialMenu:CreateFrames()
+	self:SetupKeyListener()
 	self:Print("EmoteRadialMenu loaded. Bind a key to toggle the menu.")
 end
 
@@ -37,7 +38,24 @@ function EmoteRadialMenu:SlashCommand(input)
 	AceConfigDialog:Open("EmoteRadialMenu")
 end
 
-function EmoteRadialMenu_ToggleMenu()
+function EmoteRadialMenu:SetupKeyListener()
+	if not self.keyListenerFrame then
+		local frame = CreateFrame("Frame")
+		frame:SetScript("OnUpdate", function(self, elapsed)
+			local addon = EmoteRadialMenu
+			if addon.db.profile.menu.holdToShow and addon.RadialMenu.keyPressed then
+				local keyDown = IsModifierKeyDown() or GetMouseButtonClicked()
+				if not keyDown then
+					addon.RadialMenu.keyPressed = false
+					addon.RadialMenu:Hide()
+				end
+			end
+		end)
+		self.keyListenerFrame = frame
+	end
+end
+
+function EmoteRadialMenu_ToggleMenu(keystate)
 	local addon = LibStub("AceAddon-3.0"):GetAddon("EmoteRadialMenu")
 
 	if not addon then
@@ -49,9 +67,21 @@ function EmoteRadialMenu_ToggleMenu()
 		return
 	end
 
-	if addon.RadialMenu:IsShown() then
-		addon.RadialMenu:Hide()
+	local holdMode = addon.db.profile.menu.holdToShow
+
+	if holdMode then
+		if keystate == "down" or not keystate then
+			addon.RadialMenu.keyPressed = true
+			addon.RadialMenu:Show()
+		else
+			addon.RadialMenu.keyPressed = false
+			addon.RadialMenu:Hide()
+		end
 	else
-		addon.RadialMenu:Show()
+		if addon.RadialMenu:IsShown() then
+			addon.RadialMenu:Hide()
+		else
+			addon.RadialMenu:Show()
+		end
 	end
 end

@@ -9,34 +9,50 @@ function EmoteButton:New(parent, addon)
 
 	button:SetSize(40, 40)
 	button:EnableMouse(true)
+	button:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 	button:SetFrameStrata("DIALOG")
 	button:SetFrameLevel(11)
 
 	local bg = button:CreateTexture(nil, "BACKGROUND")
 	bg:SetAllPoints()
-	bg:SetColorTexture(0.3, 0.3, 0.3, 0.9)
+	bg:SetColorTexture(0.15, 0.15, 0.18, 0.95)
 	button.bg = bg
 
-	local text = button:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+	local border = button:CreateTexture(nil, "BORDER")
+	border:SetAllPoints()
+	border:SetColorTexture(0.4, 0.4, 0.45, 1)
+	border:SetPoint("TOPLEFT", button, "TOPLEFT", -1, 1)
+	border:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 1, -1)
+	button.border = border
+
+	local highlight = button:CreateTexture(nil, "ARTWORK")
+	highlight:SetAllPoints(bg)
+	highlight:SetColorTexture(0.3, 0.5, 0.7, 0.3)
+	highlight:SetBlendMode("ADD")
+	highlight:Hide()
+	button.highlight = highlight
+
+	local text = button:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 	text:SetPoint("CENTER")
+	text:SetTextColor(1, 0.9, 0.5, 1)
 	button.text = text
 
 	button:SetScript("OnEnter", function(self)
-		local profile = addon.db.profile
-		local c = profile.menu.buttonHoverColor
-		self.bg:SetColorTexture(c[1], c[2], c[3], 0.9)
+		self.highlight:Show()
+		self.text:SetTextColor(1, 1, 1, 1)
 	end)
 
 	button:SetScript("OnLeave", function(self)
-		local profile = addon.db.profile
-		local c = profile.menu.buttonColor
-		self.bg:SetColorTexture(c[1], c[2], c[3], 0.9)
+		self.highlight:Hide()
+		self.text:SetTextColor(1, 0.9, 0.5, 1)
 	end)
 
 	button:SetScript("OnClick", function(self, mouseButton)
 		if mouseButton == "LeftButton" and self.emote then
-			addon.RadialMenu:Hide()
 			addon.EmoteManager:ExecuteEmote(self.emote)
+			if addon.db.profile.menu.closeOnUse then
+				addon.RadialMenu:Hide()
+			end
 		end
 	end)
 

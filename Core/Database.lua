@@ -7,12 +7,19 @@ Database.defaults = {
 	profile = {
 		menu = {
 			scale = 1.0,
-			alpha = 0.9,
-			buttonRadius = 100,
-			buttonSize = 40,
-			backgroundColor = {0.1, 0.1, 0.1},
-			buttonColor = {0.3, 0.3, 0.3},
-			buttonHoverColor = {0.5, 0.5, 0.5},
+			alpha = 0.95,
+			buttonRadius = 120,
+			buttonSize = 50,
+			backgroundColor = {0.1, 0.1, 0.12},
+			buttonColor = {0.15, 0.15, 0.18},
+			buttonHoverColor = {0.25, 0.35, 0.5},
+			borderColor = {0.4, 0.4, 0.45},
+			holdToShow = false,
+			closeOnUse = true,
+		},
+		keybinding = {
+			enabled = false,
+			key = "",
 		},
 		emotes = {
 			"dance", "cheer", "wave", "bow", "thank", "applaud",

@@ -4,7 +4,7 @@
 ## Author: maluramichael
 ## Version: 1.0.0
 ## SavedVariables: EmoteRadialMenuDB
-## OptionalDeps: Ace3
+## OptionalDeps: Ace3, Masque
 
 embeds.xml
 
@@ -14,3 +14,4 @@ Core\Emotes.lua
 UI\Button.lua
 UI\RadialMenu.lua
 Config\Options.lua
+Masque.lua

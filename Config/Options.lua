@@ -8,10 +8,41 @@ local function CreateOptionsTable(addon)
 		name = "EmoteRadialMenu",
 		type = "group",
 		args = {
+			behavior = {
+				name = "Behavior",
+				type = "group",
+				order = 1,
+				args = {
+					holdToShow = {
+						name = "Hold to Show",
+						desc = "Menu only shows while key is held down (requires rebind)",
+						type = "toggle",
+						order = 1,
+						get = function()
+							return addon.db.profile.menu.holdToShow
+						end,
+						set = function(_, val)
+							addon.db.profile.menu.holdToShow = val
+						end,
+					},
+					closeOnUse = {
+						name = "Close on Use",
+						desc = "Automatically close menu after selecting an emote",
+						type = "toggle",
+						order = 2,
+						get = function()
+							return addon.db.profile.menu.closeOnUse
+						end,
+						set = function(_, val)
+							addon.db.profile.menu.closeOnUse = val
+						end,
+					},
+				},
+			},
 			general = {
 				name = "Menu Appearance",
 				type = "group",
-				order = 1,
+				order = 2,
 				args = {
 					scale = {
 						name = "Menu Scale",
@@ -90,7 +121,7 @@ local function CreateOptionsTable(addon)
 			emotes = {
 				name = "Emote Selection",
 				type = "group",
-				order = 2,
+				order = 3,
 				args = {
 					description = {
 						name = "Select which emotes appear in the radial menu. Add or remove emotes as needed.",
