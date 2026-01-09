@@ -58,7 +58,7 @@ function RadialMenu:Show()
 	local profile = self.addon.db.profile
 	local x, y
 
-	if profile.menu.spawnPosition == "fixed" then
+	if profile.menu.useAnchor then
 		x, y = self:GetAnchorPosition()
 	else
 		local scale = UIParent:GetEffectiveScale()

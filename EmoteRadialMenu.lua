@@ -39,10 +39,7 @@ end
 function EmoteRadialMenu:SlashCommand(input)
 	local AceConfigDialog = LibStub("AceConfigDialog-3.0")
 	AceConfigDialog:Open("EmoteRadialMenu")
-
-	if self.db.profile.menu.spawnPosition == "fixed" then
-		self:ShowAnchorFrame()
-	end
+	self:ShowAnchorFrame()
 end
 
 function EmoteRadialMenu:ShowAnchorFrame()
@@ -51,6 +48,15 @@ end
 
 function EmoteRadialMenu:HideAnchorFrame()
 	self.AnchorFrame:Hide()
+end
+
+function EmoteRadialMenu:ToggleAnchor(enabled)
+	self.db.profile.menu.useAnchor = enabled
+	if enabled then
+		self:ShowAnchorFrame()
+	else
+		self:HideAnchorFrame()
+	end
 end
 
 function EmoteRadialMenu:UpdateAnchorFrame()

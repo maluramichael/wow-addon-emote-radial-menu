@@ -38,25 +38,16 @@ local function CreateOptionsTable(addon)
 						type = "header",
 						order = 1,
 					},
-					spawnPosition = {
-						name = L["Spawn Position"],
-						desc = L["Where the menu appears when opened"],
-						type = "select",
-						values = {
-							mouse = L["Mouse Cursor"],
-							fixed = L["Fixed Position"],
-						},
+					useAnchor = {
+						name = L["Use Fixed Position"],
+						desc = L["Menu spawns at anchor instead of mouse cursor"],
+						type = "toggle",
 						order = 2,
 						get = function()
-							return addon.db.profile.menu.spawnPosition
+							return addon.db.profile.menu.useAnchor
 						end,
 						set = function(_, val)
-							addon.db.profile.menu.spawnPosition = val
-							if val == "fixed" then
-								addon:ShowAnchorFrame()
-							else
-								addon:HideAnchorFrame()
-							end
+							addon:ToggleAnchor(val)
 						end,
 					},
 					anchorPoint = {
@@ -75,9 +66,6 @@ local function CreateOptionsTable(addon)
 							BOTTOMRIGHT = "BOTTOMRIGHT",
 						},
 						order = 3,
-						hidden = function()
-							return addon.db.profile.menu.spawnPosition ~= "fixed"
-						end,
 						get = function()
 							return addon.db.profile.menu.anchorPoint
 						end,
@@ -94,9 +82,6 @@ local function CreateOptionsTable(addon)
 						max = 500,
 						step = 5,
 						order = 4,
-						hidden = function()
-							return addon.db.profile.menu.spawnPosition ~= "fixed"
-						end,
 						get = function()
 							return addon.db.profile.menu.anchorOffsetX
 						end,
@@ -113,9 +98,6 @@ local function CreateOptionsTable(addon)
 						max = 500,
 						step = 5,
 						order = 5,
-						hidden = function()
-							return addon.db.profile.menu.spawnPosition ~= "fixed"
-						end,
 						get = function()
 							return addon.db.profile.menu.anchorOffsetY
 						end,

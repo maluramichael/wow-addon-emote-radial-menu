@@ -135,6 +135,7 @@ function AnchorFrame:UpdatePosition()
 
 	profile.menu.anchorOffsetX = math.floor(centerX - baseX + 0.5)
 	profile.menu.anchorOffsetY = math.floor(centerY - baseY + 0.5)
+	profile.menu.useAnchor = true
 
 	if self.addon.RadialMenu:IsShown() then
 		self.addon.RadialMenu:ShowAtAnchor()
