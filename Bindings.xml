@@ -1,5 +1,5 @@
 <Bindings>
-	<Binding name="EMOTEMENU_TOGGLE" category="ADDONS" header="EmoteRadialMenu">
-		EmoteRadialMenu_ToggleMenu
+	<Binding name="EMOTEMENU_TOGGLE" category="EmoteRadialMenu">
+		EmoteRadialMenu_ToggleMenu()
 	</Binding>
 </Bindings>

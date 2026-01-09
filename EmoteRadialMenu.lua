@@ -34,8 +34,8 @@ end
 
 function EmoteRadialMenu:SlashCommand(input)
 	if input == "config" or input == "options" then
-		InterfaceOptionsFrame_OpenToCategory("EmoteRadialMenu")
-		InterfaceOptionsFrame_OpenToCategory("EmoteRadialMenu")
+		local AceConfigDialog = LibStub("AceConfigDialog-3.0")
+		AceConfigDialog:Open("EmoteRadialMenu")
 	else
 		self:Print("Commands:")
 		self:Print("/emote config - Open configuration")
