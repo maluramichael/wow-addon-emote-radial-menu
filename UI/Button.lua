@@ -27,10 +27,18 @@ function EmoteButton:New(parent, addon)
 
 	local highlight = button:CreateTexture(nil, "ARTWORK")
 	highlight:SetAllPoints(bg)
-	highlight:SetColorTexture(0.3, 0.5, 0.7, 0.3)
+	highlight:SetColorTexture(0.4, 0.7, 1.0, 0.5)
 	highlight:SetBlendMode("ADD")
 	highlight:Hide()
 	button.highlight = highlight
+
+	local glow = button:CreateTexture(nil, "OVERLAY")
+	glow:SetPoint("TOPLEFT", button, "TOPLEFT", -8, 8)
+	glow:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 8, -8)
+	glow:SetColorTexture(0.5, 0.8, 1.0, 0.3)
+	glow:SetBlendMode("ADD")
+	glow:Hide()
+	button.glow = glow
 
 	local text = button:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 	text:SetPoint("CENTER")
@@ -39,20 +47,16 @@ function EmoteButton:New(parent, addon)
 
 	button:SetScript("OnEnter", function(self)
 		self.highlight:Show()
+		self.glow:Show()
+		self:SetScale(1.15)
 		self.text:SetTextColor(1, 1, 1, 1)
-
-		if self.radialMenu and self.buttonIndex then
-			self.radialMenu:ShowWedgeHighlight(self.buttonIndex)
-		end
 	end)
 
 	button:SetScript("OnLeave", function(self)
 		self.highlight:Hide()
+		self.glow:Hide()
+		self:SetScale(1.0)
 		self.text:SetTextColor(1, 0.9, 0.5, 1)
-
-		if self.radialMenu then
-			self.radialMenu:HideWedgeHighlight()
-		end
 	end)
 
 	button:SetScript("OnClick", function(self, mouseButton)
