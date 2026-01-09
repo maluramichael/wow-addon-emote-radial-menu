@@ -33,6 +33,11 @@ local function CreateOptionsTable(addon)
 				type = "group",
 				order = 2,
 				args = {
+					positionHeader = {
+						name = L["Spawn Position"],
+						type = "header",
+						order = 1,
+					},
 					spawnPosition = {
 						name = L["Spawn Position"],
 						desc = L["Where the menu appears when opened"],
@@ -41,12 +46,17 @@ local function CreateOptionsTable(addon)
 							mouse = L["Mouse Cursor"],
 							fixed = L["Fixed Position"],
 						},
-						order = 1,
+						order = 2,
 						get = function()
 							return addon.db.profile.menu.spawnPosition
 						end,
 						set = function(_, val)
 							addon.db.profile.menu.spawnPosition = val
+							if val == "fixed" then
+								addon:ShowAnchorFrame()
+							else
+								addon:HideAnchorFrame()
+							end
 						end,
 					},
 					anchorPoint = {
@@ -64,7 +74,7 @@ local function CreateOptionsTable(addon)
 							BOTTOMLEFT = "BOTTOMLEFT",
 							BOTTOMRIGHT = "BOTTOMRIGHT",
 						},
-						order = 2,
+						order = 3,
 						hidden = function()
 							return addon.db.profile.menu.spawnPosition ~= "fixed"
 						end,
@@ -73,9 +83,7 @@ local function CreateOptionsTable(addon)
 						end,
 						set = function(_, val)
 							addon.db.profile.menu.anchorPoint = val
-							if addon.RadialMenu:IsShown() then
-								addon.RadialMenu:ShowAtAnchor()
-							end
+							addon:UpdateAnchorFrame()
 						end,
 					},
 					anchorOffsetX = {
@@ -85,7 +93,7 @@ local function CreateOptionsTable(addon)
 						min = -500,
 						max = 500,
 						step = 5,
-						order = 3,
+						order = 4,
 						hidden = function()
 							return addon.db.profile.menu.spawnPosition ~= "fixed"
 						end,
@@ -94,9 +102,7 @@ local function CreateOptionsTable(addon)
 						end,
 						set = function(_, val)
 							addon.db.profile.menu.anchorOffsetX = val
-							if addon.RadialMenu:IsShown() then
-								addon.RadialMenu:ShowAtAnchor()
-							end
+							addon:UpdateAnchorFrame()
 						end,
 					},
 					anchorOffsetY = {
@@ -106,7 +112,7 @@ local function CreateOptionsTable(addon)
 						min = -500,
 						max = 500,
 						step = 5,
-						order = 4,
+						order = 5,
 						hidden = function()
 							return addon.db.profile.menu.spawnPosition ~= "fixed"
 						end,
@@ -115,10 +121,13 @@ local function CreateOptionsTable(addon)
 						end,
 						set = function(_, val)
 							addon.db.profile.menu.anchorOffsetY = val
-							if addon.RadialMenu:IsShown() then
-								addon.RadialMenu:ShowAtAnchor()
-							end
+							addon:UpdateAnchorFrame()
 						end,
+					},
+					appearanceHeader = {
+						name = L["Menu Appearance"],
+						type = "header",
+						order = 10,
 					},
 					alpha = {
 						name = L["Opacity"],
@@ -127,7 +136,7 @@ local function CreateOptionsTable(addon)
 						min = 0.1,
 						max = 1.0,
 						step = 0.05,
-						order = 5,
+						order = 11,
 						get = function()
 							return addon.db.profile.menu.alpha
 						end,
@@ -135,6 +144,11 @@ local function CreateOptionsTable(addon)
 							addon.db.profile.menu.alpha = val
 							addon.RadialMenu:ShowAtAnchor()
 						end,
+					},
+					layoutHeader = {
+						name = L["Layout"],
+						type = "header",
+						order = 20,
 					},
 					layout = {
 						name = L["Layout"],
@@ -144,7 +158,7 @@ local function CreateOptionsTable(addon)
 							radial = L["Radial"],
 							grid = L["Grid"],
 						},
-						order = 6,
+						order = 21,
 						get = function()
 							return addon.db.profile.menu.layout
 						end,
@@ -160,7 +174,7 @@ local function CreateOptionsTable(addon)
 						min = 50,
 						max = 200,
 						step = 5,
-						order = 7,
+						order = 22,
 						hidden = function()
 							return addon.db.profile.menu.layout ~= "radial"
 						end,
@@ -179,7 +193,7 @@ local function CreateOptionsTable(addon)
 						min = 1,
 						max = 10,
 						step = 1,
-						order = 8,
+						order = 23,
 						hidden = function()
 							return addon.db.profile.menu.layout ~= "grid"
 						end,
@@ -198,7 +212,7 @@ local function CreateOptionsTable(addon)
 						min = 1,
 						max = 10,
 						step = 1,
-						order = 9,
+						order = 24,
 						hidden = function()
 							return addon.db.profile.menu.layout ~= "grid"
 						end,
@@ -217,7 +231,7 @@ local function CreateOptionsTable(addon)
 						min = 0,
 						max = 20,
 						step = 1,
-						order = 10,
+						order = 25,
 						hidden = function()
 							return addon.db.profile.menu.layout ~= "grid"
 						end,

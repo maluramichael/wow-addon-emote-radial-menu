@@ -16,5 +16,6 @@ Core\Database.lua
 Core\Emotes.lua
 UI\Button.lua
 UI\RadialMenu.lua
+UI\AnchorFrame.lua
 Config\Options.lua
 Masque.lua
