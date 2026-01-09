@@ -99,7 +99,7 @@ function RadialMenu:RebuildButtons()
 
 	local emotes = self.addon.EmoteManager:GetEnabledEmotes()
 	local profile = self.addon.db.profile
-	local buttonSize = profile.menu.buttonSize
+	local buttonSize = 40
 	local alpha = profile.menu.alpha
 
 	for i, emote in ipairs(emotes) do
@@ -122,11 +122,22 @@ function RadialMenu:PositionButtons()
 	end
 
 	local profile = self.addon.db.profile
-	local radius = profile.menu.buttonRadius
+	local layout = profile.menu.layout
 	local scale = UIParent:GetEffectiveScale()
 	local centerX, centerY = GetCursorPosition()
 	centerX = centerX / scale
 	centerY = centerY / scale
+
+	if layout == "grid" then
+		self:PositionButtonsGrid(numButtons, centerX, centerY)
+	else
+		self:PositionButtonsRadial(numButtons, centerX, centerY)
+	end
+end
+
+function RadialMenu:PositionButtonsRadial(numButtons, centerX, centerY)
+	local profile = self.addon.db.profile
+	local radius = profile.menu.buttonRadius
 
 	for i = 1, numButtons do
 		local button = self.buttons[i]
@@ -141,14 +152,39 @@ function RadialMenu:PositionButtons()
 	end
 end
 
+function RadialMenu:PositionButtonsGrid(numButtons, centerX, centerY)
+	local profile = self.addon.db.profile
+	local columns = profile.menu.columns
+	local rows = profile.menu.rows
+	local gap = profile.menu.gap
+	local buttonSize = 40
+
+	local totalWidth = (columns * buttonSize) + ((columns - 1) * gap)
+	local totalHeight = (rows * buttonSize) + ((rows - 1) * gap)
+	local startX = centerX - (totalWidth / 2) + (buttonSize / 2)
+	local startY = centerY + (totalHeight / 2) - (buttonSize / 2)
+
+	for i = 1, numButtons do
+		local button = self.buttons[i]
+		if button and button:IsShown() then
+			local col = ((i - 1) % columns)
+			local row = math.floor((i - 1) / columns)
+
+			local x = startX + (col * (buttonSize + gap))
+			local y = startY - (row * (buttonSize + gap))
+
+			button:ClearAllPoints()
+			button:SetPoint("CENTER", UIParent, "BOTTOMLEFT", x, y)
+		end
+	end
+end
+
 function RadialMenu:ApplySettings()
 	local profile = self.addon.db.profile
-	local buttonSize = profile.menu.buttonSize
 	local alpha = profile.menu.alpha
 
 	for _, button in ipairs(self.buttons) do
 		if button then
-			button:SetSize(buttonSize, buttonSize)
 			button:SetAlpha(alpha)
 		end
 	end

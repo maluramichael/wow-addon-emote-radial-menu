@@ -1,6 +1,10 @@
 local AddonName = ...
 local L = {}
 
+-- Keybindings
+BINDING_HEADER_EmoteRadialMenu = "EmoteRadialMenu"
+BINDING_NAME_EMOTEMENU_TOGGLE = "Toggle Emote Menu"
+
 -- General
 L["EmoteRadialMenu loaded. Bind a key to toggle the menu."] = "EmoteRadialMenu loaded. Bind a key to toggle the menu."
 L["Cannot open menu during combat"] = "Cannot open menu during combat"
@@ -13,10 +17,18 @@ L["Automatically close menu after selecting an emote"] = "Automatically close me
 L["Menu Appearance"] = "Menu Appearance"
 L["Opacity"] = "Opacity"
 L["Transparency of the menu"] = "Transparency of the menu"
+L["Layout"] = "Layout"
+L["Choose between radial or grid layout"] = "Choose between radial or grid layout"
+L["Radial"] = "Radial"
+L["Grid"] = "Grid"
 L["Button Radius"] = "Button Radius"
 L["Distance from center to buttons"] = "Distance from center to buttons"
-L["Button Size"] = "Button Size"
-L["Size of individual emote buttons"] = "Size of individual emote buttons"
+L["Columns"] = "Columns"
+L["Number of columns in grid layout"] = "Number of columns in grid layout"
+L["Rows"] = "Rows"
+L["Number of rows in grid layout"] = "Number of rows in grid layout"
+L["Gap"] = "Gap"
+L["Space between buttons in grid layout"] = "Space between buttons in grid layout"
 
 L["Emote Selection"] = "Emote Selection"
 L["Select which emotes appear in the radial menu."] = "Select which emotes appear in the radial menu."

@@ -3,6 +3,10 @@ local L = EmoteRadialMenu_Locale or {}
 
 if GetLocale() ~= "deDE" then return end
 
+-- Keybindings
+BINDING_HEADER_EmoteRadialMenu = "EmoteRadialMenu"
+BINDING_NAME_EMOTEMENU_TOGGLE = "Emote-Menü umschalten"
+
 -- General
 L["EmoteRadialMenu loaded. Bind a key to toggle the menu."] = "EmoteRadialMenu geladen. Weise eine Taste zu, um das Menü zu öffnen."
 L["Cannot open menu during combat"] = "Menü kann im Kampf nicht geöffnet werden"
@@ -15,10 +19,18 @@ L["Automatically close menu after selecting an emote"] = "Menü automatisch nach
 L["Menu Appearance"] = "Menü-Aussehen"
 L["Opacity"] = "Deckkraft"
 L["Transparency of the menu"] = "Transparenz des Menüs"
+L["Layout"] = "Layout"
+L["Choose between radial or grid layout"] = "Wähle zwischen radial oder Gitter-Layout"
+L["Radial"] = "Radial"
+L["Grid"] = "Gitter"
 L["Button Radius"] = "Button-Radius"
 L["Distance from center to buttons"] = "Abstand vom Zentrum zu den Buttons"
-L["Button Size"] = "Button-Größe"
-L["Size of individual emote buttons"] = "Größe der einzelnen Emote-Buttons"
+L["Columns"] = "Spalten"
+L["Number of columns in grid layout"] = "Anzahl der Spalten im Gitter-Layout"
+L["Rows"] = "Zeilen"
+L["Number of rows in grid layout"] = "Anzahl der Zeilen im Gitter-Layout"
+L["Gap"] = "Abstand"
+L["Space between buttons in grid layout"] = "Abstand zwischen Buttons im Gitter-Layout"
 
 L["Emote Selection"] = "Emote-Auswahl"
 L["Select which emotes appear in the radial menu."] = "Wähle aus, welche Emotes im Radialmenü erscheinen."

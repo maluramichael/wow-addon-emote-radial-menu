@@ -40,12 +40,31 @@ local function CreateOptionsTable(addon)
 						min = 0.1,
 						max = 1.0,
 						step = 0.05,
-						order = 2,
+						order = 1,
 						get = function()
 							return addon.db.profile.menu.alpha
 						end,
 						set = function(_, val)
 							addon.db.profile.menu.alpha = val
+							if addon.RadialMenu:IsShown() then
+								addon.RadialMenu:ApplySettings()
+							end
+						end,
+					},
+					layout = {
+						name = L["Layout"],
+						desc = L["Choose between radial or grid layout"],
+						type = "select",
+						values = {
+							radial = L["Radial"],
+							grid = L["Grid"],
+						},
+						order = 2,
+						get = function()
+							return addon.db.profile.menu.layout
+						end,
+						set = function(_, val)
+							addon.db.profile.menu.layout = val
 							if addon.RadialMenu:IsShown() then
 								addon.RadialMenu:ApplySettings()
 							end
@@ -59,6 +78,9 @@ local function CreateOptionsTable(addon)
 						max = 200,
 						step = 5,
 						order = 3,
+						hidden = function()
+							return addon.db.profile.menu.layout ~= "radial"
+						end,
 						get = function()
 							return addon.db.profile.menu.buttonRadius
 						end,
@@ -69,20 +91,67 @@ local function CreateOptionsTable(addon)
 							end
 						end,
 					},
-					buttonSize = {
-						name = L["Button Size"],
-						desc = L["Size of individual emote buttons"],
+					columns = {
+						name = L["Columns"],
+						desc = L["Number of columns in grid layout"],
 						type = "range",
-						min = 20,
-						max = 80,
-						step = 2,
+						min = 1,
+						max = 10,
+						step = 1,
 						order = 4,
+						hidden = function()
+							return addon.db.profile.menu.layout ~= "grid"
+						end,
 						get = function()
-							return addon.db.profile.menu.buttonSize
+							return addon.db.profile.menu.columns
 						end,
 						set = function(_, val)
-							addon.db.profile.menu.buttonSize = val
-							addon.RadialMenu:ApplySettings()
+							addon.db.profile.menu.columns = val
+							if addon.RadialMenu:IsShown() then
+								addon.RadialMenu:ApplySettings()
+							end
+						end,
+					},
+					rows = {
+						name = L["Rows"],
+						desc = L["Number of rows in grid layout"],
+						type = "range",
+						min = 1,
+						max = 10,
+						step = 1,
+						order = 5,
+						hidden = function()
+							return addon.db.profile.menu.layout ~= "grid"
+						end,
+						get = function()
+							return addon.db.profile.menu.rows
+						end,
+						set = function(_, val)
+							addon.db.profile.menu.rows = val
+							if addon.RadialMenu:IsShown() then
+								addon.RadialMenu:ApplySettings()
+							end
+						end,
+					},
+					gap = {
+						name = L["Gap"],
+						desc = L["Space between buttons in grid layout"],
+						type = "range",
+						min = 0,
+						max = 20,
+						step = 1,
+						order = 6,
+						hidden = function()
+							return addon.db.profile.menu.layout ~= "grid"
+						end,
+						get = function()
+							return addon.db.profile.menu.gap
+						end,
+						set = function(_, val)
+							addon.db.profile.menu.gap = val
+							if addon.RadialMenu:IsShown() then
+								addon.RadialMenu:ApplySettings()
+							end
 						end,
 					},
 				},

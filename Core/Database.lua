@@ -7,8 +7,11 @@ Database.defaults = {
 	profile = {
 		menu = {
 			alpha = 0.95,
+			layout = "radial",
 			buttonRadius = 120,
-			buttonSize = 50,
+			columns = 4,
+			rows = 3,
+			gap = 5,
 			closeOnUse = true,
 		},
 		emotes = {
