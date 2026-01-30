@@ -1,8 +1,11 @@
-## Interface: 11508
-## Title: EmoteRadialMenu
+## Interface: 11508, 20505
+## Title: |cFF00D1FFMM|r EmoteRadialMenu
 ## Notes: A radial menu for quick emote access. Press keybind to open menu at cursor.
-## Author: maluramichael
-## Version: 1.0.0
+## Author: Michael Malura
+## Version: 1.0.2
+## IconTexture: Interface\Icons\Ability_Warrior_RallyingCry
+## Category-enUS: Social
+## Category-deDE: Sozial
 ## SavedVariables: EmoteRadialMenuDB
 ## OptionalDeps: Ace3, Masque
 
