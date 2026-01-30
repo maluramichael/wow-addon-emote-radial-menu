@@ -8,6 +8,9 @@ manual-changelog:
   filename: CHANGELOG.md
   markup-type: markdown
 
+required-dependencies:
+  - libstub
+  - ace3
+
 optional-dependencies:
-  - Ace3
-  - Masque
+  - masque
