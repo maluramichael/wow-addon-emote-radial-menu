@@ -1,4 +1,4 @@
-## Interface: 11508, 20505
+## Interface: 20505
 ## Title: |cFF00D1FFMM|r EmoteRadialMenu
 ## Notes: A radial menu for quick emote access. Press keybind to open menu at cursor.
 ## Author: Michael Malura
