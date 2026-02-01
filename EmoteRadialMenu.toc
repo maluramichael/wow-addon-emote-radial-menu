@@ -2,7 +2,8 @@
 ## Title: |cFF00D1FFMM|r EmoteRadialMenu
 ## Notes: A radial menu for quick emote access. Press keybind to open menu at cursor.
 ## Author: Michael Malura
-## Version: 1.0.7
+## Version: 1.0.8
+## X-Curse-Project-ID: 1424792
 ## IconTexture: Interface\Icons\Ability_Warrior_RallyingCry
 ## Category-enUS: Social
 ## Category-deDE: Sozial
