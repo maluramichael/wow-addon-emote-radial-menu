@@ -1,5 +1,10 @@
 # EmoteRadialMenu
 
+<!-- links:start -->
+[![Support me on Ko-fi](https://malura.de/assets/badge/kofi.svg)](https://malura.de/go/kofi?ref=wow-addon-emote-radial-menu)
+[![Check out my page](https://malura.de/assets/badge/malura.svg)](https://malura.de/go/site?ref=wow-addon-emote-radial-menu)
+<!-- links:end -->
+
 A lightweight World of Warcraft addon that provides quick access to your favorite emotes through an elegant radial or grid menu. Simply bind a key and instantly access up to 24 emotes with a single click.
 
 ## Features
