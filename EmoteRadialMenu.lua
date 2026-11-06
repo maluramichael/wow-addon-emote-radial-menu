@@ -10,7 +10,6 @@ function EmoteRadialMenu:OnInitialize()
 
 	self.EmoteManager = Addon.EmoteManager:New(self)
 	self.RadialMenu = Addon.RadialMenu:New(self)
-	self.AnchorFrame = Addon.AnchorFrame:New(self)
 
 	self:RegisterChatCommand("emote", "SlashCommand")
 	self:RegisterChatCommand("erm", "SlashCommand")
@@ -39,33 +38,6 @@ end
 function EmoteRadialMenu:SlashCommand(input)
 	local AceConfigDialog = LibStub("AceConfigDialog-3.0")
 	AceConfigDialog:Open("EmoteRadialMenu")
-	self:ShowAnchorFrame()
-end
-
-function EmoteRadialMenu:ShowAnchorFrame()
-	self.AnchorFrame:Show()
-end
-
-function EmoteRadialMenu:HideAnchorFrame()
-	self.AnchorFrame:Hide()
-end
-
-function EmoteRadialMenu:ToggleAnchor(enabled)
-	self.db.profile.menu.useAnchor = enabled
-	if enabled then
-		self:ShowAnchorFrame()
-	else
-		self:HideAnchorFrame()
-	end
-end
-
-function EmoteRadialMenu:UpdateAnchorFrame()
-	if self.AnchorFrame:IsShown() then
-		self.AnchorFrame:UpdatePosition()
-	end
-	if self.RadialMenu:IsShown() then
-		self.RadialMenu:ShowAtAnchor()
-	end
 end
 
 function EmoteRadialMenu_ToggleMenu()

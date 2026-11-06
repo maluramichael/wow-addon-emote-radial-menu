@@ -1,5 +1,5 @@
 <Bindings>
-	<Binding name="EMOTEMENU_TOGGLE" category="EmoteRadialMenu">
+	<Binding name="EMOTEMENU_TOGGLE" header="BINDING_HEADER_EmoteRadialMenu" runOnUp="false">
 		EmoteRadialMenu_ToggleMenu()
 	</Binding>
 </Bindings>

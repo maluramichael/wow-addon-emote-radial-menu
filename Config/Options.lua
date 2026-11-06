@@ -33,79 +33,6 @@ local function CreateOptionsTable(addon)
 				type = "group",
 				order = 2,
 				args = {
-					positionHeader = {
-						name = L["Spawn Position"],
-						type = "header",
-						order = 1,
-					},
-					useAnchor = {
-						name = L["Use Fixed Position"],
-						desc = L["Menu spawns at anchor instead of mouse cursor"],
-						type = "toggle",
-						order = 2,
-						get = function()
-							return addon.db.profile.menu.useAnchor
-						end,
-						set = function(_, val)
-							addon:ToggleAnchor(val)
-						end,
-					},
-					anchorPoint = {
-						name = L["Anchor Point"],
-						desc = L["Screen position for fixed spawn"],
-						type = "select",
-						values = {
-							CENTER = "CENTER",
-							TOP = "TOP",
-							BOTTOM = "BOTTOM",
-							LEFT = "LEFT",
-							RIGHT = "RIGHT",
-							TOPLEFT = "TOPLEFT",
-							TOPRIGHT = "TOPRIGHT",
-							BOTTOMLEFT = "BOTTOMLEFT",
-							BOTTOMRIGHT = "BOTTOMRIGHT",
-						},
-						order = 3,
-						get = function()
-							return addon.db.profile.menu.anchorPoint
-						end,
-						set = function(_, val)
-							addon.db.profile.menu.anchorPoint = val
-							addon:UpdateAnchorFrame()
-						end,
-					},
-					anchorOffsetX = {
-						name = L["Anchor Offset X"],
-						desc = L["Horizontal offset from anchor point"],
-						type = "range",
-						min = -500,
-						max = 500,
-						step = 5,
-						order = 4,
-						get = function()
-							return addon.db.profile.menu.anchorOffsetX
-						end,
-						set = function(_, val)
-							addon.db.profile.menu.anchorOffsetX = val
-							addon:UpdateAnchorFrame()
-						end,
-					},
-					anchorOffsetY = {
-						name = L["Anchor Offset Y"],
-						desc = L["Vertical offset from anchor point"],
-						type = "range",
-						min = -500,
-						max = 500,
-						step = 5,
-						order = 5,
-						get = function()
-							return addon.db.profile.menu.anchorOffsetY
-						end,
-						set = function(_, val)
-							addon.db.profile.menu.anchorOffsetY = val
-							addon:UpdateAnchorFrame()
-						end,
-					},
 					appearanceHeader = {
 						name = L["Menu Appearance"],
 						type = "header",
@@ -124,7 +51,7 @@ local function CreateOptionsTable(addon)
 						end,
 						set = function(_, val)
 							addon.db.profile.menu.alpha = val
-							addon.RadialMenu:ShowAtAnchor()
+							addon.RadialMenu:ApplySettings()
 						end,
 					},
 					layoutHeader = {
@@ -146,7 +73,7 @@ local function CreateOptionsTable(addon)
 						end,
 						set = function(_, val)
 							addon.db.profile.menu.layout = val
-							addon.RadialMenu:ShowAtAnchor()
+							addon.RadialMenu:ApplySettings()
 						end,
 					},
 					buttonRadius = {
@@ -165,7 +92,7 @@ local function CreateOptionsTable(addon)
 						end,
 						set = function(_, val)
 							addon.db.profile.menu.buttonRadius = val
-							addon.RadialMenu:ShowAtAnchor()
+							addon.RadialMenu:ApplySettings()
 						end,
 					},
 					columns = {
@@ -184,7 +111,7 @@ local function CreateOptionsTable(addon)
 						end,
 						set = function(_, val)
 							addon.db.profile.menu.columns = val
-							addon.RadialMenu:ShowAtAnchor()
+							addon.RadialMenu:ApplySettings()
 						end,
 					},
 					rows = {
@@ -203,7 +130,7 @@ local function CreateOptionsTable(addon)
 						end,
 						set = function(_, val)
 							addon.db.profile.menu.rows = val
-							addon.RadialMenu:ShowAtAnchor()
+							addon.RadialMenu:ApplySettings()
 						end,
 					},
 					gap = {
@@ -222,7 +149,7 @@ local function CreateOptionsTable(addon)
 						end,
 						set = function(_, val)
 							addon.db.profile.menu.gap = val
-							addon.RadialMenu:ShowAtAnchor()
+							addon.RadialMenu:ApplySettings()
 						end,
 					},
 				},
@@ -328,7 +255,7 @@ local function CreateOptionsTable(addon)
 					for _, emote in ipairs(category.emotes) do
 						addon.EmoteManager:AddEmote(emote)
 					end
-					addon.RadialMenu:ShowAtAnchor()
+					addon.RadialMenu:ApplySettings()
 				end,
 			},
 			selectNone = {
@@ -339,7 +266,7 @@ local function CreateOptionsTable(addon)
 					for _, emote in ipairs(category.emotes) do
 						addon.EmoteManager:RemoveEmote(emote)
 					end
-					addon.RadialMenu:ShowAtAnchor()
+					addon.RadialMenu:ApplySettings()
 				end,
 			},
 			spacer = {
@@ -363,7 +290,7 @@ local function CreateOptionsTable(addon)
 					else
 						addon.EmoteManager:RemoveEmote(emote)
 					end
-					addon.RadialMenu:ShowAtAnchor()
+					addon.RadialMenu:ApplySettings()
 				end,
 			}
 		end

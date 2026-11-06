@@ -55,17 +55,10 @@ function RadialMenu:Show()
 		self:CreateFrames()
 	end
 
-	local profile = self.addon.db.profile
-	local x, y
-
-	if profile.menu.useAnchor then
-		x, y = self:GetAnchorPosition()
-	else
-		local scale = UIParent:GetEffectiveScale()
-		x, y = GetCursorPosition()
-		x = x / scale
-		y = y / scale
-	end
+	local scale = UIParent:GetEffectiveScale()
+	local x, y = GetCursorPosition()
+	x = x / scale
+	y = y / scale
 
 	self.cursorX = x
 	self.cursorY = y
@@ -78,67 +71,6 @@ function RadialMenu:Show()
 
 	self.frame:Show()
 	self.clickFrame:Show()
-end
-
-function RadialMenu:ShowAtAnchor()
-	if not self.frame then
-		self:CreateFrames()
-	end
-
-	local x, y = self:GetAnchorPosition()
-	self.cursorX = x
-	self.cursorY = y
-
-	self.frame:ClearAllPoints()
-	self.frame:SetPoint("CENTER", UIParent, "BOTTOMLEFT", x, y)
-
-	self:RebuildButtons()
-	self:PositionButtons()
-
-	self.frame:Show()
-	self.clickFrame:Show()
-end
-
-function RadialMenu:GetAnchorPosition()
-	local profile = self.addon.db.profile
-	local anchorPoint = profile.menu.anchorPoint
-	local offsetX = profile.menu.anchorOffsetX
-	local offsetY = profile.menu.anchorOffsetY
-
-	local screenWidth = UIParent:GetWidth()
-	local screenHeight = UIParent:GetHeight()
-	local x, y
-
-	if anchorPoint == "CENTER" then
-		x = screenWidth / 2
-		y = screenHeight / 2
-	elseif anchorPoint == "TOP" then
-		x = screenWidth / 2
-		y = screenHeight
-	elseif anchorPoint == "BOTTOM" then
-		x = screenWidth / 2
-		y = 0
-	elseif anchorPoint == "LEFT" then
-		x = 0
-		y = screenHeight / 2
-	elseif anchorPoint == "RIGHT" then
-		x = screenWidth
-		y = screenHeight / 2
-	elseif anchorPoint == "TOPLEFT" then
-		x = 0
-		y = screenHeight
-	elseif anchorPoint == "TOPRIGHT" then
-		x = screenWidth
-		y = screenHeight
-	elseif anchorPoint == "BOTTOMLEFT" then
-		x = 0
-		y = 0
-	elseif anchorPoint == "BOTTOMRIGHT" then
-		x = screenWidth
-		y = 0
-	end
-
-	return x + offsetX, y + offsetY
 end
 
 function RadialMenu:Hide()
@@ -191,10 +123,8 @@ function RadialMenu:PositionButtons()
 
 	local profile = self.addon.db.profile
 	local layout = profile.menu.layout
-	local scale = UIParent:GetEffectiveScale()
-	local centerX, centerY = GetCursorPosition()
-	centerX = centerX / scale
-	centerY = centerY / scale
+	local centerX = self.cursorX
+	local centerY = self.cursorY
 
 	if layout == "grid" then
 		self:PositionButtonsGrid(numButtons, centerX, centerY)

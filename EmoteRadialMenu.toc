@@ -1,8 +1,8 @@
-## Interface: 20505
+## Interface: 20505, 16001
 ## Title: |cFF00D1FFMM|r EmoteRadialMenu
 ## Notes: A radial menu for quick emote access. Press keybind to open menu at cursor.
 ## Author: Michael Malura
-## Version: 1.0.9
+## Version: 1.1.0
 ## X-Curse-Project-ID: 1424792
 ## IconTexture: Interface\Icons\Ability_Warrior_RallyingCry
 ## Category-enUS: Social
@@ -20,6 +20,5 @@ Core\Database.lua
 Core\Emotes.lua
 UI\Button.lua
 UI\RadialMenu.lua
-UI\AnchorFrame.lua
 Config\Options.lua
 Masque.lua
